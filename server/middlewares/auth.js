@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken")
+const {config} = require('../config/secret')
 
 exports.auth = async(req, res, next) =>{
     let token = req.header('x-auth-token');
@@ -7,7 +8,7 @@ exports.auth = async(req, res, next) =>{
     }
     let tokenData;
     try{
-        tokenData = jwt.verify(token, "MoarSecret");
+        tokenData = jwt.verify(token, config.tokenSecret);
         req.user = tokenData;
         next();
     }
